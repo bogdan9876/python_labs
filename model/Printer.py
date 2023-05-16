@@ -43,6 +43,3 @@ if __name__ == "__main__":
 
     for printer in printers:
         print(printer)
-
-for x in range (10,100,3):
-    print(x)
