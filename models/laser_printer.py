@@ -26,3 +26,9 @@ class LaserPrinter(Printer):
 
     def __len__(self):
         return len(self.favorite_tasks)
+      
+    def get_remaining_pages_count(self, get_pages_capability=None):
+        return get_pages_capability()
+
+    def __repr__(self):
+        return super().__str__() + f", pages_done = {self.pages_done}"

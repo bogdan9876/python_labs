@@ -37,3 +37,5 @@ class InkjetPrinter(Printer):
 
     def __len__(self):
         return len(self.favorite_tasks)
+            f" black = {self.black}"
+        )

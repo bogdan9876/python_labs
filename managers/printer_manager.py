@@ -122,6 +122,17 @@ class PrinterManager:
         Start the pylint process to analyze the source code.
         """
         print("Pylint is working")
+    def __init__(self):
+        self.printers = []
+
+    def add_printer(self, printer):
+        self.printers.append(printer)
+
+    def find_by_type(self, printer_type):
+        return list(filter(lambda pr: pr.type == printer_type, self.printers))
+
+    def find_printer_with_volume_bigger_than(self, paper_tray_capacity):
+        return list(filter(lambda pr: pr.paper_tray_capacity > paper_tray_capacity, self.printers))
 
 
 if __name__ == "__main__":
@@ -169,3 +180,11 @@ if __name__ == "__main__":
     print(f"All condition results: {condition_results['all']}")
     print(f"Any condition results: {condition_results['any']}")
     manager.start_pylint()
+    manager.add_printer(InkjetPrinter("R", "inkjet", True, True, 100, 50, 50, "RGB", 2, 5, 5, 4,5))
+    manager.add_printer(InkjetPrinter("M", "inkjet", True, False, 50, 30, 30, "RGB", 2, 5, 5, 4, 5))
+
+    for printer in manager.printers:
+        print(printer)
+
+    print(manager.find_by_type("laser"))
+    print(manager.find_printer_with_volume_bigger_than(499))
