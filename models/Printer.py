@@ -1,23 +1,31 @@
-class Printer:
+from abc import ABC, abstractmethod
+
+
+class Printer(ABC):
     __instance = None
 
     def __init__(self, model=None, printer_type=None, is_color=False, is_duplex=False,
-                 paper_tray_capacity=0, paper_count=0):
+                 paper_tray_capacity=0, paper_count=0, pages_capability=0):
         self.model = model
         self.type = printer_type
         self.is_color = is_color
         self.is_duplex = is_duplex
         self.paper_tray_capacity = paper_tray_capacity
         self.paper_count = paper_count
+        self.pages_capability = pages_capability
+        self.favorite_tasks = set()
 
+    @abstractmethod
     def print(self, pages):
-        if self.paper_count >= pages:
-            self.paper_count -= pages
+        pass
 
+    @abstractmethod
     def load_paper(self, count):
-        available_space = self.paper_tray_capacity - self.paper_count
-        if count <= available_space:
-            self.paper_count += count
+        pass
+
+    @abstractmethod
+    def get_remaining_pages_count(self):
+        pass
 
     @staticmethod
     def get_instance():
@@ -29,17 +37,5 @@ class Printer:
         return (
             f"model = {self.model}, type = {self.type}, duplex = {self.is_duplex}, "
             f"color = {self.is_color}, paper capacity = {self.paper_tray_capacity}, "
-            f"paper count = {self.paper_count}"
+            f"paper count = {self.paper_count}, pages capability = {self.pages_capability}"
         )
-
-
-if __name__ == "__main__":
-    printers = [
-        Printer(),
-        Printer("Miwa", "LED", True, False, 50, 20),
-        Printer.get_instance(),
-        Printer.get_instance()
-    ]
-
-    for printer in printers:
-        print(printer)
