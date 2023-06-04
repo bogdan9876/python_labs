@@ -9,6 +9,7 @@ class LedPrinter(Printer):
                          paper_tray_capacity, paper_count, pages_capability)
         self.count_of_light_panels = count_of_light_panels
         self.zoom = zoom
+        self.favorite_tasks = {"AFA, FAF"}
 
     def print(self, pages):
         pass
@@ -24,3 +25,6 @@ class LedPrinter(Printer):
             super().__str__() +
             f", count of light panels = {self.count_of_light_panels}, zoom = {self.zoom}"
         )
+
+    def __len__(self):
+        return len(self.favorite_tasks)

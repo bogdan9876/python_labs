@@ -16,6 +16,7 @@ class InkjetPrinter(Printer):
         self.magenta = magenta
         self.yellow = yellow
         self.black = black
+        self.favorite_tasks = {"ABA, BAB"}
 
     def print(self, pages):
         pass
@@ -31,5 +32,10 @@ class InkjetPrinter(Printer):
             super().__str__() +
             f", color type = {self.color_type}, color level = {self.color_level}, "
             f"cyan = {self.cyan}, magenta = {self.magenta}, yellow = {self.yellow},"
+            f" black = {self.black},"
+        )
+
+    def __len__(self):
+        return len(self.favorite_tasks)
             f" black = {self.black}"
         )

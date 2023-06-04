@@ -9,6 +9,7 @@ class MatrixPrinter(Printer):
                          paper_tray_capacity, paper_count, pages_capability)
         self.needles_works = needles_works
         self.sensors = sensors
+        self.favorite_tasks = {"AVA, VAV"}
 
     def print(self, pages):
         pass
@@ -24,3 +25,6 @@ class MatrixPrinter(Printer):
             super().__str__() +
             f", needles works = {self.needles_works}, sensors = {self.sensors}"
         )
+
+    def __len__(self):
+        return len(self.favorite_tasks)
