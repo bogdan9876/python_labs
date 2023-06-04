@@ -4,6 +4,7 @@ A module that defines a PrinterManager class for managing a collection of printe
 # pylint: disable=import-error
 from decorators.method_call import method_call
 from decorators.pylint_decorator import run_pylint
+from exceptions.capacity_error import CapacityError
 from models.inkjet_printer import InkjetPrinter
 from models.laser_printer import LaserPrinter
 from models.led_printer import LedPrinter
@@ -122,17 +123,6 @@ class PrinterManager:
         Start the pylint process to analyze the source code.
         """
         print("Pylint is working")
-    def __init__(self):
-        self.printers = []
-
-    def add_printer(self, printer):
-        self.printers.append(printer)
-
-    def find_by_type(self, printer_type):
-        return list(filter(lambda pr: pr.type == printer_type, self.printers))
-
-    def find_printer_with_volume_bigger_than(self, paper_tray_capacity):
-        return list(filter(lambda pr: pr.paper_tray_capacity > paper_tray_capacity, self.printers))
 
 
 if __name__ == "__main__":
@@ -145,6 +135,11 @@ if __name__ == "__main__":
     manager.add_printer(LedPrinter("Lazur", "LED", True, False, 18, 18, 0, 5, 1.00))
     manager.add_printer(InkjetPrinter("R", "inkjet", True, True, 100, 50, 50, "RGB", 2, 5, 5, 4, 5))
     manager.add_printer(InkjetPrinter("M", "inkjet", True, False, 50, 30, 30, "RGB", 2, 5, 5, 4, 5))
+
+    try:
+        manager.printers[7].print(10)
+    except CapacityError as exception:
+        print(f"CapacityError found: {str(exception)}")
 
     print("All printers:")
     for printer in manager.printers:
@@ -180,11 +175,3 @@ if __name__ == "__main__":
     print(f"All condition results: {condition_results['all']}")
     print(f"Any condition results: {condition_results['any']}")
     manager.start_pylint()
-    manager.add_printer(InkjetPrinter("R", "inkjet", True, True, 100, 50, 50, "RGB", 2, 5, 5, 4,5))
-    manager.add_printer(InkjetPrinter("M", "inkjet", True, False, 50, 30, 30, "RGB", 2, 5, 5, 4, 5))
-
-    for printer in manager.printers:
-        print(printer)
-
-    print(manager.find_by_type("laser"))
-    print(manager.find_printer_with_volume_bigger_than(499))

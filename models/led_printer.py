@@ -1,4 +1,8 @@
+import logging
+
+from exceptions.capacity_error import CapacityError
 from models.printer import Printer
+from decorators.logger import logged
 
 
 class LedPrinter(Printer):
@@ -11,8 +15,12 @@ class LedPrinter(Printer):
         self.zoom = zoom
         self.favorite_tasks = {"AFA, FAF"}
 
+    @logged(CapacityError, "file")
     def print(self, pages):
-        pass
+        if pages > self.pages_capability:
+            raise CapacityError("Insufficient pages capability.")
+        self.paper_count -= pages
+        logging.info(f"Printed {pages} pages. Paper count: {self.paper_count}")
 
     def load_paper(self, count):
         pass
