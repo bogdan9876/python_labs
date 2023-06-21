@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Printer(ABC):
     __instance = None
 
@@ -12,6 +13,7 @@ class Printer(ABC):
         self.paper_tray_capacity = paper_tray_capacity
         self.paper_count = paper_count
         self.pages_capability = pages_capability
+        self.favorite_tasks = set()
 
     @abstractmethod
     def print(self, pages):
@@ -23,7 +25,7 @@ class Printer(ABC):
 
     @abstractmethod
     def get_remaining_pages_count(self):
-        pass 
+        pass
 
     @staticmethod
     def get_instance():
@@ -37,3 +39,4 @@ class Printer(ABC):
             f"color = {self.is_color}, paper capacity = {self.paper_tray_capacity}, "
             f"paper count = {self.paper_count}, pages capability = {self.pages_capability}"
         )
+
